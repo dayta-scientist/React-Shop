@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../Context'
+import logo from '../../assets/GLR.dev.svg'
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext)
@@ -75,6 +76,7 @@ const Navbar = () => {
             Others
           </NavLink>
         </li>
+        <img className='flex items-center ml-44' src={logo} alt="Personal-Logo" width='70' height='70' />
       </ul>
       <ul className='flex items-center gap-3'>
         <li className='text-black/60'>
