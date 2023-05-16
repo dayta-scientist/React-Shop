@@ -1,5 +1,6 @@
-import { useRoutes, BrowserRouter } from 'react-router-dom';
-import { ShoppingCartProvider } from '../../Context'
+import { useContext } from 'react';
+import { useRoutes, BrowserRouter, Navigate } from 'react-router-dom';
+import { ShoppingCartProvider, ShoppingCartContext } from '../../Context'
 import Home from '../Home';
 import MyAccount from '../MyAccount';
 import MyOrder from '../MyOrder';
@@ -11,13 +12,17 @@ import CheckoutSideMenu from '../../Components/CheckOutSideMenu';
 import './App.css'
 
 const AppRoutes = () => {
+  const context = useContext(ShoppingCartContext)
+  const hasUserAnAccount = context.hasUserAnAccount
+  const isUserSignOut = context.isUserSignOut
+
   let routes = useRoutes([
-    { path: '/', element: <Home/> },
-    { path: '/clothes', element: <Home/> },
-    { path: '/electronics', element: <Home/> },
-    { path: '/furniture', element: <Home/> },
-    { path: '/toys', element: <Home/> },
-    { path: '/others', element: <Home/> },
+    { path: '/', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/clothes', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/electronics', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/furniture', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/toys', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
+    { path: '/others', element: hasUserAnAccount && !isUserSignOut ? <Home /> : <Navigate replace to={'/sign-in'} /> },
     { path: '/my-account', element: <MyAccount/> },
     { path: '/my-order', element: <MyOrder/> },
     { path: '/my-orders', element: <MyOrders/> },
